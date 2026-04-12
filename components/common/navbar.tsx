@@ -16,10 +16,10 @@ const Navbar = () => {
     return (
         <>
             <nav className="w-full h-18 lg:h-20  fixed top-0 left-0 z-30!">
-                <div className="px-4! sm:px-6! lg:px-8! py-2 lg:py-4 w-full h-full flex items-center justify-between on-cream-bg">
+                <div className="px-4! sm:px-6! lg:px-8! py-2 lg:py-4 w-full h-full grid grid-cols-2 lg:grid-cols-3 items-center  on-cream-bg">
 
                     {/* LEFT - LOGO */}
-                    <Link href="/" className="item logo h-full flex items-center rounded-lg  px-4">
+                    <Link href="/" className="item logo h-full flex items-center rounded-lg  px-4 place-self-start">
                         <h4 className="font-semibold leading-none">UF</h4>
                     </Link>
 
@@ -27,7 +27,7 @@ const Navbar = () => {
                     <Button
                         onClick={() => setMenuOpen(!menuOpen)}
                         animationRef={menuTextRef}
-                        className="item"
+                        className="item place-self-end lg:place-self-center"
                     >
                         <HoverText ref={menuTextRef} text="MENU" className="tracking-wide" />
 
@@ -42,7 +42,7 @@ const Navbar = () => {
                     <Button
                         href="/contact"
                         animationRef={letsTalkTextRef}
-                        className="item max-lg:hidden"
+                        className="item max-lg:hidden place-self-end"
                     >
                         <HoverText ref={letsTalkTextRef} text="CONTACT US!." />
                     </Button>

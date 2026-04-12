@@ -19,6 +19,10 @@ const useIntro = create<IntroStore>()(
     }),
     {
       name: "intro-store",
+      partialize: (state) => ({
+        // Don't persist `completed` — it should reset on reload
+        // Only persist other state if needed in future
+      }),
       onRehydrateStorage: () => (state) => {
         state?.setHasHydrated(true);
       },

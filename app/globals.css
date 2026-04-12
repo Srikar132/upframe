@@ -8,6 +8,7 @@
   /* Barlow Condensed */
   --font-sans: var(--font-sans);
   /* Inter            */
+  --font-cursive: var(--font-cursive);
 
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
@@ -60,9 +61,9 @@
 :root {
   /* ── Midnight Champagne palette (oklch) ── */
   /* #0C0B09 */
-  --background: oklch(0.108 0.006 60);
+  --background: #EAE6DD;
+  --foreground: #1B1A18;
   /* #F2ECD8 */
-  --foreground: oklch(0.941 0.022 80);
 
   /* #131108 */
   --card: oklch(0.130 0.010 65);
@@ -171,6 +172,11 @@
   button , a {
     @apply cursor-pointer
   }
+
+  .font-cursive {
+    @apply font-cursive;
+  }
+
 }
 
 
@@ -218,21 +224,24 @@
   }
 
 
+  .common-section-dark {
+    @apply  bg-foreground! text-background! w-full! relative! z-20!;
+  }
+
+  .common-section-light {
+    @apply  bg-background! text-foreground! w-full! relative! z-20!;
+  }
+
   nav {
 
-
+    
     .on-cream-bg {
       @apply text-background;
 
-
-      
       .item {
-        @apply bg-background text-foreground!;
-      }
-
-      .item.logo {
         @apply text-background! bg-foreground!;
       }
+
     }
 
 
@@ -283,7 +292,7 @@
   }
 
   h2 {
-    @apply font-black text-[2.75rem] leading-[0.93] md:text-[4rem] md:leading-[0.91] lg:text-[5.5rem] lg:leading-[0.9] xl:text-[4.7rem] xl:leading-[0.9];
+    @apply font-black text-[2.75rem] leading-[0.93] md:text-[4rem] md:leading-[0.91] lg:text-[5.5rem] lg:leading-[0.9] xl:text-[4.7rem] xl:leading-[0.9] tracking-normal;
   }
 
   h3 {

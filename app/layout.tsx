@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
-import { Barlow_Condensed, Inter } from "next/font/google";
+import { Barlow_Condensed, Inter ,  Indie_Flower } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
+import SmoothScrollProvider from "@/providers/SmoothScrollProvider";
 
 const barlowCondensed = Barlow_Condensed({
   subsets: ["latin"],
@@ -14,6 +15,14 @@ const inter = Inter({
   weight: ["300", "400", "500"],
   variable: "--font-sans",
 });
+
+const dancingScript = Indie_Flower({
+  subsets: ["latin"],
+  variable: "--font-cursive",
+  weight: ["400" ],
+})
+
+
 
 export const metadata: Metadata = {
   title: "UPFRAME -- Get your thougths closer to you.",
@@ -33,9 +42,14 @@ export default function RootLayout({
         "antialiased",
         barlowCondensed.variable,
         inter.variable,
+        dancingScript.variable,
       )}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col" suppressHydrationWarning>
+        <SmoothScrollProvider>
+          {children}
+        </SmoothScrollProvider>
+      </body>
     </html>
   );
 }

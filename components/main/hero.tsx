@@ -33,26 +33,28 @@ const Hero = () => {
       { yPercent: 0, opacity: 1, duration: 0.9, stagger: 0.3 }
     );
 
-    tl.fromTo(
-      ".hero-bar",
-      { yPercent: 100, opacity: 0 },
-      { yPercent: 0, opacity: 1, duration: 0.7, ease: "power2.out" },
-      "-=0.4"
-    );
   }, { scope: containerRef, dependencies: [hasHydrated] }); // ← remove `completed` from deps
 
   return (
     <section
       ref={containerRef}
-      className="w-full fixed inset-0 h-screen overflow-hidden  flex items-center justify-center bg-foreground text-background overflow-hidden z-10"
+      className="w-full h-screen overflow-hidden  flex items-center justify-center overflow-hidden z-10!"
     >
-      <div className="container  flex flex-wrap justify-center gap-x-5 gap-y-1">
+      <div className="container relative h-full  flex flex-wrap justify-center gap-x-5 gap-y-1">
+
+        {/* Corner marks */}
+        {/* <span className="absolute top-6 left-6 w-4 h-4 border-t border-l border-foreground" />
+        <span className="absolute top-6 right-6 w-4 h-4 border-t border-r border-foreground" />
+        <span className="absolute bottom-6 left-6 w-4 h-4 border-b border-l border-foreground" />
+        <span className="absolute bottom-6 right-6 w-4 h-4 border-b border-r border-foreground" /> */}
+
+
         {LINES.map(({ text, accent }, i) => (
           <div
             key={i}
             className="overflow-hidden"
-            /* force "GROW" onto its own row so FAST follows it */
-            // style={i === 2 ? { flexBasis: "100%" } : undefined}
+          /* force "GROW" onto its own row so FAST follows it */
+          // style={i === 2 ? { flexBasis: "100%" } : undefined}
           >
             <h1
               className={`hero-line ${accent ? "text-primary" : ""} text-center opacity-0`}
@@ -63,17 +65,6 @@ const Hero = () => {
         ))}
       </div>
 
-      <div className="absolute h-1/4  bg-gradient-to-t from-primary to-transparent inset-x-0 bottom-0">
-        <div className="px-4! sm:px-6! lg:px-8! hero-bar w-full flex items-end flex-wrap py-2 lg:py-4  h-full justify-between opacity-0">
-          <p className="p-inline p-base! lg:max-w-1/3">
-            UPFRAME is a digital product agency that helps businesses grow.
-            We are a team of experts in design, development, and marketing.
-          </p>
-          <p className="p-inline p-xs lg:max-w-1/2">
-            SCROLL DOWN TO SEE OUR WORK
-          </p>
-        </div>
-      </div>
     </section>
   );
 };

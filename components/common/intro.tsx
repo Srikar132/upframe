@@ -29,7 +29,7 @@ const Intro = () => {
             return;
         }
 
-        console.log("Animation started");
+        
 
         const topPaths = topSvgRef.current?.querySelectorAll('path');
         const bottomPaths = bottomSvgRef.current?.querySelectorAll('path');
@@ -82,7 +82,7 @@ const Intro = () => {
 
         // Step 3: Blink sequence
         // tl.to(allPaths, { fillOpacity: 0, stroke: 'transparent', duration: 0.09, ease: 'none' }, '+=0.22');
-        tl.to(allPaths, { fillOpacity: 1, stroke: '#BFA97A', duration: 0.09, ease: 'none' });
+        tl.to(allPaths, { fillOpacity: 1, duration: 0.09, ease: 'none' });
         // tl.to(allPaths, { fillOpacity: 0, stroke: 'transparent',  duration: 0.09, ease: 'none' }, '+=0.09');
         // tl.to(allPaths, { fillOpacity: 1, stroke: '#BFA97A',      duration: 0.09, ease: 'none' });
         // tl.to(allPaths, { fillOpacity: 0, stroke: 'transparent',  duration: 0.07, ease: 'none' }, '+=0.07');
@@ -135,12 +135,12 @@ const Intro = () => {
         <section
             ref={containerRef}
             style={{ visibility: 'hidden' }}
-            className="fixed inset-0 z-50 w-screen h-screen pointer-events-none"
+            className=" fixed inset-0 z-50 w-screen h-screen pointer-events-none"
         >
             {/* TOP HALF — SVG center sits at 50vh */}
             <div
                 ref={topHalfRef}
-                className="absolute inset-x-0 top-0 bg-background overflow-hidden"
+                className="absolute inset-x-0 top-0 bg-foreground overflow-hidden"
                 style={{ height: '50%' }}
             >
                 <div
@@ -161,7 +161,7 @@ const Intro = () => {
             {/* BOTTOM HALF — SVG center sits at 50vh */}
             <div
                 ref={bottomHalfRef}
-                className="absolute inset-x-0 bottom-0 bg-background overflow-hidden"
+                className="absolute inset-x-0 bottom-0 bg-foreground overflow-hidden"
                 style={{ height: '50%' }}
             >
                 <div
