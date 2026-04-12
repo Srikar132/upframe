@@ -131,23 +131,23 @@ const WhatWeDo = () => {
         </div>
 
         {/* Headline lines */}
-        <div className="flex flex-wrap gap-x-5 gap-y-3 justify-center">
+        <div className="flex flex-wrap gap-x-5  justify-center">
           {LINES.map(({ text, accent }, i) => (
             <div key={i} className="overflow-hidden">
-              <h3 className={`line ${accent ? "text-primary" : ""} text-center opacity-0`}>
+              <h4 className={`line ${accent ? "text-primary" : ""} text-center opacity-0`}>
                 {text}
-              </h3>
+              </h4>
             </div>
           ))}
         </div>
 
         {/* Cursive text */}
-        <div className="w-full max-w-2xl mx-auto px-4">
-          <p className="font-cursive p-xl p-content text-center">
-            First, we learn your goals, users, and constraints. Then we rapidly
-            design, build, and iterate — delivering sharp, fast-loading websites
-            that look great and convert.
+        <div className="w-full max-w-2xl mx-auto px-4 flex">
+          <p className="font-cursive p-xl p-content mx-auto  text-center max-w-xs">
+            First, we learn your goals, users, and constraints.
           </p>
+
+          {/*  */}
         </div>
 
         {/* Image — inside container but pin is unscoped */}

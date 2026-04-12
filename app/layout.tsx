@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
-import { Barlow_Condensed, Inter ,  Indie_Flower } from "next/font/google";
+import { Inter , Unbounded ,  Indie_Flower } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 import SmoothScrollProvider from "@/providers/SmoothScrollProvider";
 
-const barlowCondensed = Barlow_Condensed({
+const barlowCondensed = Unbounded({
   subsets: ["latin"],
   weight: ["700", "800", "900"],
   variable: "--font-heading",

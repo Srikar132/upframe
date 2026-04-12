@@ -288,7 +288,7 @@
 
   /* ─── Typography ─── */
   h1 {
-    @apply font-black text-[3.5rem] leading-[0.92] md:text-[5.5rem] md:leading-[0.9] lg:text-[6rem] lg:leading-[0.88] xl:text-[10rem] 2xl:text-[12rem] xl:leading-[0.87];
+    @apply font-black text-[2rem] leading-[0.92] md:text-[5.5rem] md:leading-[0.9] lg:text-[6rem] lg:leading-[0.88] xl:text-[7.5rem]! xl:leading-[0.87];
   }
 
   h2 {

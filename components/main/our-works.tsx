@@ -17,7 +17,7 @@ const OurWorks = () => {
             trigger: containerRef.current,
             start: "top top",
             // Stay pinned for 200% of the viewport height
-            end: "+=200%", 
+            // end: "+=200%", 
             pin: true,
             pinSpacing: true,
             scrub: 1,
@@ -31,8 +31,8 @@ const OurWorks = () => {
         // The 'trigger' section needs height to give the scroll something to move through
         <div ref={containerRef} className="w-full">
             <section ref={wrapperRef} className="common-section-dark h-screen">
-                <div className="container h-full space-y-10 flex items-center justify-center">
-                    <h2>Our Works Content</h2>
+                <div className="container space-y-10 flex items-center justify-center">
+                    <h5>Our Works Content</h5>
                 </div>
             </section>
         </div>

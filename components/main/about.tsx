@@ -115,15 +115,15 @@ const About = () => {
 
   return (
     <section className='common-section-light min-h-screen overflow-hidden'>
-      <div className="container">
-        <h1 className="text-center w-full tracking-tight leading-none text-[30vw]">
+      <div className="container text-center ">
+        <span className="text-center mx-auto font-heading font-bold uppercase tracking-tight leading-none text-[20vw]!">
           ABOUT
-        </h1>
+        </span>
         <p className="text-center w-full p-xl p-content">
-          This is the about section where you can learn more about us.
+          We are a team of passionate builders, designers, and strategists on a mission to empower startups to ship faster and smarter. With years of experience at the intersection of product development and operational excellence, we understand the unique challenges that growth-stage companies face. We believe that great ideas deserve great execution, and we're here to make that a reality for our customers.
         </p>
 
-
+        
         {/* Right */}
         <div>
           {faqs.map((item, i) => (
