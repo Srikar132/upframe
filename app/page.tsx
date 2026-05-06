@@ -1,35 +1,36 @@
-import Navbar from "@/components/common/navbar";
-import Intro from "@/components/common/intro";
+import Navbar from "@/components/shared/navbar";
 import Hero from "@/components/main/hero";
-import Image from "next/image";
-import HowWeApproach from "@/components/main/how-we-approach";
-import OurWorks from "@/components/main/our-works";
 import About from "@/components/main/about";
-import SayOkay from "@/components/main/say-okay";
-import Footer from "@/components/common/footer";
+import Footer from "@/components/shared/footer";
+import OurServices from "@/components/main/our-services";
+import OurWorks from "@/components/main/our-works";
 
-export default function Home() {
+export default async function Home() {
+
+  await new Promise((resolve) => setTimeout(resolve, 5000));
+
   return (
     <>
-      <Intro />
-
       <main className="w-full min-h-screen relative bg-background">
         <Navbar />
 
         {/* hero section */}
-        <Hero/>
+        <Hero />
+
+        <OurServices />
+
         {/* what we build */}
-        <HowWeApproach/>
+        {/* <HowWeApproach /> */}
 
         {/* our works */}
-        <OurWorks/>
+        <OurWorks />
 
         {/* about */}
         <About />
 
 
         {/* say yes */}
-        <SayOkay/>
+        {/* <SayOkay /> */}
 
         {/* footer */}
         <Footer />

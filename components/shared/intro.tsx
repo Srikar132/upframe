@@ -3,14 +3,10 @@ import { useGSAP } from '@gsap/react';
 import { useRef } from 'react';
 import gsap from 'gsap';
 import { DrawSVGPlugin } from 'gsap/DrawSVGPlugin';
-import useIntro from '@/store/intro-store';
 
 gsap.registerPlugin(DrawSVGPlugin);
 
 const Intro = () => {
-    const completed = useIntro((s) => s.completed);
-    const markCompleted = useIntro((s) => s.markCompleted);
-    const hasHydrated = useIntro((s) => s._hasHydrated); // ← reactive subscription
     const containerRef = useRef<HTMLDivElement>(null);
     const topHalfRef = useRef<HTMLDivElement>(null);
     const bottomHalfRef = useRef<HTMLDivElement>(null);
@@ -19,17 +15,6 @@ const Intro = () => {
 
     useGSAP(() => {
 
-        if (!hasHydrated) return;
-
-        // 🚫 STOP if already completed
-        if (completed) {
-            if (containerRef.current) {
-                containerRef.current.style.display = "none";
-            }
-            return;
-        }
-
-        
 
         const topPaths = topSvgRef.current?.querySelectorAll('path');
         const bottomPaths = bottomSvgRef.current?.querySelectorAll('path');
@@ -45,8 +30,8 @@ const Intro = () => {
 
         gsap.set(allPaths, {
             drawSVG: '0%',
-            stroke: '#BFA97A',
-            fill: '#BFA97A',
+            stroke: 'var(--primary)',
+            fill: 'var(--primary)',
             fillOpacity: 0,
         });
 
@@ -84,9 +69,9 @@ const Intro = () => {
         // tl.to(allPaths, { fillOpacity: 0, stroke: 'transparent', duration: 0.09, ease: 'none' }, '+=0.22');
         tl.to(allPaths, { fillOpacity: 1, duration: 0.09, ease: 'none' });
         // tl.to(allPaths, { fillOpacity: 0, stroke: 'transparent',  duration: 0.09, ease: 'none' }, '+=0.09');
-        // tl.to(allPaths, { fillOpacity: 1, stroke: '#BFA97A',      duration: 0.09, ease: 'none' });
+        // tl.to(allPaths, { fillOpacity: 1, stroke: 'var(--primary)',      duration: 0.09, ease: 'none' });
         // tl.to(allPaths, { fillOpacity: 0, stroke: 'transparent',  duration: 0.07, ease: 'none' }, '+=0.07');
-        // tl.to(allPaths, { fillOpacity: 1, stroke: '#BFA97A',      duration: 0.07, ease: 'none' });
+        // tl.to(allPaths, { fillOpacity: 1, stroke: 'var(--primary)',      duration: 0.07, ease: 'none' });
 
         // Hold so the full logo breathes
         tl.to({}, { duration: 0.45 });
@@ -116,11 +101,10 @@ const Intro = () => {
             ease: splitEase,
             onComplete: () => {
                 gsap.set(containerRef.current, { visibility: 'hidden' });
-                markCompleted();
             },
         }, '<+=0.03');
 
-    }, { dependencies :  [hasHydrated, completed]});
+    });
 
     const W = 900;
     const H = 160;

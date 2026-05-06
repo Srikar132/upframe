@@ -59,91 +59,63 @@
 }
 
 :root {
-  /* ── Midnight Champagne palette (oklch) ── */
-  /* #0C0B09 */
-  --background: #EAE6DD;
-  --foreground: #1B1A18;
-  /* #F2ECD8 */
+  /* ── Modern Creative palette ── */
+  --background: #ffffff;
+  --foreground: #000000;
 
-  /* #131108 */
-  --card: oklch(0.130 0.010 65);
-  /* #F2ECD8 */
-  --card-foreground: oklch(0.941 0.022 80);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0 0 0);
 
-  /* #131108 */
-  --popover: oklch(0.130 0.010 65);
-  /* #F2ECD8 */
-  --popover-foreground: oklch(0.941 0.022 80);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0 0 0);
 
-  /* champagne gold as primary */
-  /* #BFA97A */
-  --primary: oklch(0.712 0.068 72);
-  /* #0C0B09 */
-  --primary-foreground: oklch(0.108 0.006 60);
+  /* Primary: Vibrant Lime Pear (#E2F29B) */
+  --primary: oklch(0.88 0.05 85);
+  --primary-foreground: oklch(0.15 0.01 90);
 
-  /* slightly lighter surface as secondary */
-  /* #1A1810 */
-  --secondary: oklch(0.165 0.014 68);
-  /* #F2ECD8 */
-  --secondary-foreground: oklch(0.941 0.022 80);
+  /* Secondary: Purple from image (#7C5DFA) */
+  --secondary: oklch(0.55 0.22 285);
+  --secondary-foreground: oklch(1 0 0);
 
-  /* #1A1810 */
-  --muted: oklch(0.165 0.014 68);
-  /* #9A8B6A */
-  --muted-foreground: oklch(0.598 0.048 72);
+  /* Muted: Soft grey */
+  --muted: oklch(0.96 0.005 0);
+  --muted-foreground: oklch(0.45 0.01 0);
 
-  /* #1A1810 */
-  --accent: oklch(0.165 0.014 68);
-  /* #BFA97A */
-  --accent-foreground: oklch(0.712 0.068 72);
+  /* Accent: Lime from image (#D4FF3F) */
+  --accent: oklch(0.92 0.25 110);
+  --accent-foreground: oklch(0 0 0);
 
-  --destructive: oklch(0.577 0.245 27.325);
+  --destructive: oklch(0.6 0.2 25);
 
-  /* #2A2518 */
-  --border: oklch(0.215 0.020 68);
-  /* #2A2518 */
-  --input: oklch(0.215 0.020 68);
-  /* #BFA97A */
-  --ring: oklch(0.712 0.068 72);
+  --border: oklch(0.94 0.01 0);
+  --input: oklch(0.94 0.01 0);
+  --ring: oklch(0.93 0.13 115);
 
-  /* chart — gold ramp */
-  --chart-1: oklch(0.712 0.068 72);
-  --chart-2: oklch(0.650 0.055 72);
-  --chart-3: oklch(0.580 0.042 72);
-  --chart-4: oklch(0.450 0.030 72);
-  --chart-5: oklch(0.300 0.018 72);
+  /* chart — modern ramp */
+  --chart-1: oklch(0.55 0.22 285);
+  --chart-2: oklch(0.92 0.25 110);
+  --chart-3: oklch(0.93 0.13 115);
+  --chart-4: oklch(0.4 0.01 0);
+  --chart-5: oklch(0.2 0.01 0);
 
-  --radius: 0.4rem;
+  --radius: 0.65rem;
 
   /* sidebar */
-  /* #100F0C */
-  --sidebar: oklch(0.122 0.008 62);
-  /* #F2ECD8 */
-  --sidebar-foreground: oklch(0.941 0.022 80);
-  /* #BFA97A */
-  --sidebar-primary: oklch(0.712 0.068 72);
-  /* #0C0B09 */
-  --sidebar-primary-foreground: oklch(0.108 0.006 60);
-  /* #1A1810 */
-  --sidebar-accent: oklch(0.165 0.014 68);
-  /* #BFA97A */
-  --sidebar-accent-foreground: oklch(0.712 0.068 72);
-  /* #2A2518 */
-  --sidebar-border: oklch(0.215 0.020 68);
-  /* #BFA97A */
-  --sidebar-ring: oklch(0.712 0.068 72);
+  --sidebar: oklch(0.99 0.005 90);
+  --sidebar-foreground: oklch(0.15 0.01 90);
+  --sidebar-primary: oklch(0.93 0.13 115);
+  --sidebar-primary-foreground: oklch(0.2 0.05 115);
+  --sidebar-accent: oklch(0.55 0.22 285);
+  --sidebar-accent-foreground: oklch(1 0 0);
+  --sidebar-border: oklch(0.94 0.01 0);
+  --sidebar-ring: oklch(0.93 0.13 115);
 
-  /* ── Extra Midnight Champagne tokens ── */
-  /* #BFA97A */
-  --gold: oklch(0.712 0.068 72);
-  /* #8C7A55 */
-  --gold-muted: oklch(0.540 0.048 72);
-  /* rgba gold 12% */
-  --gold-dim: oklch(0.712 0.068 72 / 0.12);
-  /* #100F0C */
-  --surface: oklch(0.122 0.008 62);
-  /* #1A1810 */
-  --surface-raised: oklch(0.165 0.014 68);
+  /* ── Extra tokens matching image ── */
+  --gold: oklch(0.93 0.13 115);
+  --gold-muted: oklch(0.95 0.08 115);
+  --gold-dim: oklch(0.93 0.13 115 / 0.15);
+  --surface: oklch(0.98 0.005 90);
+  --surface-raised: oklch(1 0 0);
 }
 
 
@@ -166,28 +138,31 @@
   h4,
   h5,
   h6 {
-    @apply font-heading uppercase tracking-wide;
+    @apply font-heading tracking-wide;
   }
 
-  button , a {
-    @apply cursor-pointer
-  }
 
   .font-cursive {
     @apply font-cursive;
   }
 
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+
+  }
+
+
 }
 
 
 @layer utilities {
-  .p-inline {
-    @apply px-3 py-1.5;
+
+  .common-padding {
+    @apply px-4 sm:px-6 lg:px-8;
   }
 
-  .p-content {
-    @apply p-5 md:p-8;
-  }
+
 
   .scrollbar-hide::-webkit-scrollbar {
     display: none !important;
@@ -198,84 +173,10 @@
     scrollbar-width: none !important;
   }
 
-  /* ── Midnight Champagne utilities ── */
-  .text-gold {
-    color: var(--gold);
-  }
-
-  .text-gold-muted {
-    color: var(--gold-muted);
-  }
-
-  .bg-surface {
-    background-color: var(--surface);
-  }
-
-  .bg-surface-raised {
-    background-color: var(--surface-raised);
-  }
-
-  .border-gold {
-    border-color: var(--gold);
-  }
-
-  .border-gold-dim {
-    border-color: var(--gold-dim);
-  }
-
-
-  .common-section-dark {
-    @apply  bg-foreground! text-background! w-full! relative! z-20!;
-  }
-
-  .common-section-light {
-    @apply  bg-background! text-foreground! w-full! relative! z-20!;
-  }
-
-  nav {
-
-    
-    .on-cream-bg {
-      @apply text-background;
-
-      .item {
-        @apply text-background! bg-foreground!;
-      }
-
-    }
-
-
-    .on-black-bg {
-
-      .item {
-
-      }
-
-      .item.logo {
-
-      }
-    }
-
-    .on-white-bg {
-      @apply text-background;
-
-      .item {
-
-      }
-
-      .item.logo {
-
-      }
-    }
-  }
 }
 
 
 @layer components {
-  .container {
-    @apply max-w-7xl! w-full! mx-auto! px-4! sm:px-6! lg:px-8! lg:max-w-360!;
-  }
-
 
 
   section {
@@ -283,12 +184,26 @@
   }
 
   .section-header {
-    @apply mb-8 md:mb-12 lg:mb-16 text-center;
+    @apply mb-12 md:mb-16 flex flex-col md:flex-row md:items-end justify-between gap-6;
+
+    .header-label {
+      @apply flex items-center gap-4 text-xs font-bold tracking-[0.2em] uppercase mb-2 text-foreground/60;
+
+      &::before {
+        content: "";
+        @apply w-2.5 h-2.5 rounded-full bg-primary;
+      }
+
+      &::after {
+        content: "";
+        @apply w-32 h-[1px] bg-border;
+      }
+    }
   }
 
   /* ─── Typography ─── */
   h1 {
-    @apply font-black text-[2rem] leading-[0.92] md:text-[5.5rem] md:leading-[0.9] lg:text-[6rem] lg:leading-[0.88] xl:text-[7.5rem]! xl:leading-[0.87];
+    @apply font-black text-[2rem] leading-[0.92] md:text-[5.5rem] md:leading-[0.9] lg:text-[6rem] lg:leading-[0.88] xl:text-[7.5rem] xl:leading-[0.87];
   }
 
   h2 {
@@ -318,5 +233,25 @@
 
   .p-xs {
     @apply text-[0.6875rem] leading-[1.5] md:text-[0.75rem] md:leading-[1.55] lg:text-[0.8125rem] lg:leading-[1.6];
+  }
+  /* ── Liquid Card ── */
+  .liquid-card-container {
+    @apply relative overflow-visible border-none bg-transparent shadow-none p-0 gap-0 ring-0;
+  }
+
+  .liquid-card-img-wrapper {
+    @apply w-full overflow-hidden transition-all duration-500;
+  }
+
+  .liquid-card-img {
+    @apply w-full h-full object-cover transition-transform duration-700 ease-out;
+  }
+
+  .liquid-card-title {
+    @apply font-bold text-lg mt-4 leading-tight text-foreground;
+  }
+
+  .liquid-card-subtitle {
+    @apply text-sm text-muted-foreground mt-1;
   }
 }

@@ -1,16 +1,14 @@
 "use client";
 import React from 'react'
-import Button from '../ui/button'
-import HoverText from '../common/hover-text'
-import Link from 'next/link';
-import { ArrowDownIcon } from '@phosphor-icons/react';
+import { Button } from '../ui/button'
+import HoverText from '../shared/hover-text'
 
 const SayOkay = () => {
     const sayOkayTextRef = React.useRef<any>(null);
 
     return (
-        <section className='common-section-light'>
-            <div className="flex-1 common-padding flex flex-col justify-center items-center gap-12 rounded-2xl! container min-h-[90vh] common-section-dark relative overflow-hidden">
+        <section className='section h-screen bg-foreground text-background rounded-2xl!'>
+            <div className="w-full container mx-auto common-padding flex flex-col justify-center items-center gap-12 relative">
 
                 {/* Corner marks */}
                 <span className="absolute top-6 left-6 w-4 h-4 border-t border-l border-primary/25" />
@@ -33,16 +31,15 @@ const SayOkay = () => {
 
                 {/* Subtext */}
                 <p className='p-inline p-base text-center max-w-lg font-light lowercase uppercase'>
-                    We craft digital products that are fast, thoughtful, and built to make an impact. 
+                    We craft digital products that are fast, thoughtful, and built to make an impact.
                     <span className='p-base underline underline-offset-2'> Let's build yours.</span>
                     {/* <ArrowDownIcon className='inline animate-bounce' /> */}
                 </p>
 
                 {/* CTA Button */}
-                {/* CTA Button */}
+
                 <Button
                     className='bg-white p-7 max-h-fit rounded-2xl! transition-all ease-linear duration-200 relative'
-                    animationRef={sayOkayTextRef}
                 >
 
                     <HoverText
@@ -50,10 +47,6 @@ const SayOkay = () => {
                         className="w-full text-foreground font-heading whitespace-nowrap text-center font-bold uppercase text-[7vw] px-5"
                         text="SAY OKAY"
                     />
-
-                    <h2 className="absolute  group-hover:scale-125! transform-content transition-all duration-300 ease-in-out  -top-3 -right-5 -md:right-10 text-orange-700 font-cursive">
-                        #
-                    </h2>
                 </Button>
 
                 {/* Below button row */}
@@ -65,7 +58,7 @@ const SayOkay = () => {
                 </div>
             </div>
         </section >
-    )
+    );
 }
 
-export default SayOkay
+export default SayOkay;
