@@ -14,13 +14,23 @@ export default function SmoothScrollProvider({ children }: { children: React.Rea
   const [lenis, setLenis] = useState<Lenis | null>(null);
 
   useEffect(() => {
-    const l = new Lenis({ duration: 1.5 });
+    const l = new Lenis({ 
+      duration: 1.5,
+      easing: (t) => (t === 1 ? 1 : 1 - Math.pow(2, -10 * t)), // Stronger exponential easing
+      orientation: 'vertical',
+      gestureOrientation: 'vertical',
+      smoothWheel: true,
+      wheelMultiplier: 1.1,
+      touchMultiplier: 2,
+    });
     setLenis(l);
 
     const tick = (time: number) => l.raf(time * 1000);
     gsap.ticker.add(tick);
     gsap.ticker.lagSmoothing(0);
-    l.on("scroll", ScrollTrigger.update);
+    l.on("scroll", () => {
+        ScrollTrigger.update();
+    });
 
     return () => {
       gsap.ticker.remove(tick);

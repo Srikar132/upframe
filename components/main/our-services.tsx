@@ -6,6 +6,7 @@ import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Button } from "@/components/ui/button";
+import CustomButton from "@/components/ui/custom-button";
 import { cn } from "@/lib/utils";
 import { ArrowUpRight } from "lucide-react";
 
@@ -61,7 +62,7 @@ const services: ServiceCardProps[] = [
         title: "AI Technology Implementation",
         description: "AI has the power to transform your business — but only when implemented the right way.",
         image: "/services/web-apps.png",
-        bgColor: "#d4f53c",
+        bgColor: "#40E0D0",
         textColor: "text-black",
         className: "col-span-1 row-span-1 min-h-[340px]",
         imageSize: "h-32",
@@ -235,7 +236,7 @@ const OurServices = () => {
                         digital services
                     </h4>
                 </div>
-                <Button size={"lg"} className="rounded-full self-start md:self-auto">See All Projects</Button>
+                <CustomButton className="self-start md:self-auto">See All Projects</CustomButton>
             </div>
 
             {/* Grid */}

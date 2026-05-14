@@ -1,51 +1,102 @@
 "use client";
 
 import Link from "next/link";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import HoverText from "./hover-text";
 import { Button } from "@/components/ui/button";
 import Menu from "./menu";
+import { ThemeToggle } from "./theme-toggle";
+import CustomButton from "@/components/ui/custom-button";
+import gsap from "gsap";
 
 const Navbar = () => {
     const [menuOpen, setMenuOpen] = useState(false);
-    const menuTextRef = useRef<any>(null);
-    const letsTalkTextRef = useRef<any>(null);
-    const menuRef = useRef<HTMLDivElement>(null);
+    const navRef = useRef<HTMLElement>(null);
+    const lastScrollY = useRef(0);
+    const isHidden = useRef(false);
 
+    useEffect(() => {
+        const handleScroll = () => {
+            const currentScrollY = window.scrollY;
+            const scrollingDown = currentScrollY > lastScrollY.current;
+
+            if (scrollingDown && currentScrollY > 150) {
+                if (!isHidden.current) {
+                    gsap.to(navRef.current, {
+                        y: "-150%",
+                        duration: 0.5,
+                        ease: "power3.inOut"
+                    });
+                    isHidden.current = true;
+                }
+            } else if (!scrollingDown || currentScrollY < 50) {
+                if (isHidden.current) {
+                    gsap.to(navRef.current, {
+                        y: "0%",
+                        duration: 0.5,
+                        ease: "power3.out"
+                    });
+                    isHidden.current = false;
+                }
+            }
+            lastScrollY.current = currentScrollY;
+        };
+
+        window.addEventListener("scroll", handleScroll);
+        return () => window.removeEventListener("scroll", handleScroll);
+    }, []);
 
     return (
         <>
-            <nav className="w-full h-18 lg:h-20 fixed top-0 left-0 z-30!">
-                <div className="common-padding container mx-auto py-2 lg:py-4 w-full h-full grid grid-cols-2 lg:grid-cols-3 items-center  on-cream-bg">
+            <nav
+                ref={navRef}
+                className="w-full fixed top-6 left-0 z-50 px-4 will-change-transform"
+            >
+                <div className="max-w-7xl mx-auto h-16 md:h-20 bg-white dark:bg-zinc-800/30 backdrop-blur-xl rounded-full flex items-center justify-between px-6 md:px-8 shadow-2xl transition-all duration-500">
 
                     {/* LEFT - LOGO */}
-                    <Link href="/" className="item logo h-full flex items-center rounded-lg  px-4 place-self-start">
-                        <h4 className="font-semibold leading-none">UF</h4>
+                    <Link href="/" className="flex items-center gap-2 group">
+                        <div className="w-10 h-10 bg-primary rounded-full flex items-center justify-center font-black text-primary-foreground transition-transform duration-500">
+                            UF
+                        </div>
+                        <span className="font-bold text-xl tracking-tight text-foreground hidden md:block">UPFRAME</span>
                     </Link>
 
-                    {/* CENTER - MENU BUTTON */}
-                    <Button
-                        onClick={() => setMenuOpen(!menuOpen)}
-                        className="item place-self-end lg:place-self-center"
-                    >
-                        <HoverText ref={menuTextRef} text="MENU" className="tracking-wide" />
+                    {/* CENTER - LINKS */}
+                    <div className="hidden lg:flex items-center gap-10">
+                        {["Home", "Services", "Portfolio", "About"].map((item) => (
+                            <Link
+                                key={item}
+                                href={`/${item.toLowerCase()}`}
+                                className="text-sm font-medium text-foreground/60 hover:text-foreground transition-colors"
+                            >
+                                {item}
+                            </Link>
+                        ))}
+                    </div>
 
-                        <div className="flex flex-col justify-center items-center w-6 h-full">
-                            <span className="block w-7 h-[1.5px] bg-current mb-[5px]" />
-                            <span className="block w-7 h-[1.5px] bg-current mb-[5px]" />
-                            <span className="block w-7 h-[1.5px] bg-current" />
-                        </div>
-                    </Button>
+                    {/* RIGHT - CTA & MENU */}
+                    <div className="flex items-center gap-4">
+                        <ThemeToggle />
+                        <CustomButton
+                            className="hidden md:flex"
+                        >
+                            CONTACT US
+                        </CustomButton>
 
-                    {/* RIGHT - CTA */}
-                    <Button
-                        className="item max-lg:hidden place-self-end"
-                    >
-                        <HoverText ref={letsTalkTextRef} text="CONTACT US!." />
-                    </Button>
-
+                        <Button
+                            onClick={() => setMenuOpen(!menuOpen)}
+                            variant="ghost"
+                            size="icon"
+                            className="text-foreground hover:bg-foreground/10 rounded-full"
+                        >
+                            <div className="flex flex-col gap-1.5 w-6">
+                                <span className="block w-full h-px bg-foreground" />
+                                <span className="block w-full h-px bg-foreground" />
+                            </div>
+                        </Button>
+                    </div>
                 </div>
-
             </nav>
 
             {/* <Menu ref={menuRef} className="" /> */}

@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
-import { Inter, Unbounded, Indie_Flower, Space_Grotesk, Manrope } from "next/font/google";
+import { Inter, Tomorrow, Unbounded, Indie_Flower, Space_Grotesk, Manrope } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 import SmoothScrollProvider from "@/providers/SmoothScrollProvider";
+import { ThemeProvider } from "@/providers/ThemeProvider";
 
 const barlowCondensed = Space_Grotesk({
   subsets: ["latin"],
@@ -22,6 +23,12 @@ const dancingScript = Indie_Flower({
   weight: ["400"],
 })
 
+const tomorrow = Tomorrow({
+  subsets: ["latin"],
+  variable: "--font-tomorrow",
+  weight: ["400", "500", "600", "700"],
+})
+
 
 
 export const metadata: Metadata = {
@@ -37,18 +44,27 @@ export default function RootLayout({
   return (
     <html
       lang="en"
+      suppressHydrationWarning
       className={cn(
         "h-full",
         "antialiased",
         barlowCondensed.variable,
         inter.variable,
         dancingScript.variable,
+        tomorrow.variable,
       )}
     >
       <body className="min-h-full flex flex-col" suppressHydrationWarning>
-        <SmoothScrollProvider>
-          {children}
-        </SmoothScrollProvider>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="dark"
+          enableSystem={false}
+          storageKey="theme"
+        >
+          <SmoothScrollProvider>
+            {children}
+          </SmoothScrollProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

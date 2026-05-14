@@ -4,7 +4,7 @@ import { useRef } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { Button } from "@/components/ui/button";
+import CustomButton from "../ui/custom-button";
 import { Badge } from "@/components/ui/badge";
 import LiquidCard from "@/components/shared/liquid-card";
 import { cn } from "@/lib/utils";
@@ -137,9 +137,9 @@ const OurWorks = () => {
                         projects we have done
                     </h4>
                 </div>
-                <Button size="lg" className="rounded-full self-start md:self-auto">
+                <CustomButton className="self-start md:self-auto">
                     See All Projects
-                </Button>
+                </CustomButton>
             </div>
 
             {/*
