@@ -124,16 +124,16 @@ const HeroSection = () => {
       <div className="absolute -left-18 top-0 bottom-0 w-[200px] md:w-[300px] pointer-events-none opacity-60 dark:hidden">
         <Image src="/hero/smoke-left.png" alt="" fill className="object-contain object-left" priority />
       </div>
-      <div className="absolute -right-20 top-0 bottom-0 w-[200px] md:w-[300px] pointer-events-none opacity-60 dark:hidden">
+      <div className="absolute -right-20 top-30 bottom-0 w-[200px] md:w-[300px] pointer-events-none opacity-60 dark:hidden">
         <Image src="/hero/smoke-right.png" alt="" fill className="object-contain object-right" priority />
       </div>
 
       {/* Main Heading - Fluid Typography with clamp() for smooth responsiveness */}
       <div className="relative z-20 flex flex-col items-center mb-[clamp(-8vh,-5vw,-2vh)] px-4 w-full overflow-visible md:translate-y-[6vh]">
-        <h2 className="flex flex-col md:flex-row items-center justify-center gap-0 md:gap-[0.3em] font-black leading-[clamp(0.7,0.75,1)] md:leading-none tracking-[0.05rem] text-foreground text-center font-tomorrow uppercase whitespace-nowrap overflow-visible">
-          <RollingText text="Crafted" className="text-[clamp(3.5rem,20vw,8rem)] md:text-[6vw]" />
-          <RollingText text="Creative" className="text-[clamp(3.5rem,20vw,8rem)] md:text-[6vw]" />
-          <RollingText text="Coding" className="text-[clamp(3.5rem,20vw,8rem)] md:text-[6vw]" />
+        <h2 className="flex flex-col md:flex-row items-center justify-center gap-0 md:gap-[0.3em] font-black leading-[clamp(0.7,0.75,1)] md:leading-none tracking-[0.05rem] text-foreground text-center font-tomorrow uppercase overflow-visible">
+          <RollingText text="Crafted" className="text-[clamp(2.2rem,15vw,8rem)] md:text-[6vw]" />
+          <RollingText text="Creative" className="text-[clamp(2.2rem,15vw,8rem)] md:text-[6vw]" />
+          <RollingText text="Coding" className="text-[clamp(2.2rem,15vw,8rem)] md:text-[6vw]" />
         </h2>
       </div>
 
