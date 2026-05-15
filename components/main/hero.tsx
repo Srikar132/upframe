@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 import Image from "next/image";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
@@ -65,40 +65,76 @@ const HeroSection = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const sectionRef = useRef<HTMLElement>(null);
   const cardsRef = useRef<(HTMLDivElement | null)[]>([]);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
 
   useGSAP(
     () => {
-      // Use a unique name to avoid any potential scope collision
-      const isMobileView = window.innerWidth < 768;
-      
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: "top top",
-          end: isMobileView ? "+=250%" : "+=150%", // Extended runway for mobile horizontal scroll
-          pin: true,
-          scrub: 1.5,
-        },
-      });
+      const mm = gsap.matchMedia();
 
-      if (isMobileView) {
-        // Mobile: Professional Horizontal Scroll
-        // Start cards fanned out to the right side of the screen
-        tl.set(cardsRef.current, {
-          x: (i) => (i * 300) + 150,
-          rotation: (i) => (i - 2.5) * 10,
-          scale: 0.8,
+      mm.add("(max-width: 767px)", () => {
+        const tl = gsap.timeline({
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: "top top",
+            end: "+=250%",
+            pin: true,
+            scrub: 1.5,
+          },
         });
 
-        // Deep horizontal displacement for a clear 'scrolling' feel
+        const cardWidth = 150;
+        const gap = 3;
+        const totalWidth = cardWidth + gap;
+
+        // Phase 1: Match initial desktop position exactly
+        tl.set(cardsRef.current, {
+          x: (i) => CARDS[i].x,
+          y: (i) => CARDS[i].y,
+          rotation: (i) => CARDS[i].initialRotation,
+          scale: 0.95,
+        });
+
+        // Phase 2: Converge into a neat row
         tl.to(cardsRef.current, {
-          x: (i) => (i * 300) - 1800,
+          x: (i) => (i * totalWidth) + 20,
           rotation: 0,
+          y: 0,
           scale: 1,
+          duration: 1,
+          ease: "power2.inOut",
+        });
+
+        // Phase 3: Horizontal scroll
+        const scrollDistance = (CARDS.length * totalWidth) - window.innerWidth + 40;
+        tl.to(cardsRef.current, {
+          x: (i) => (i * totalWidth) - scrollDistance,
+          duration: 1.5,
           ease: "none",
         });
-      } else {
-        // Desktop: High-End Expansion Logic
+
+        // Common background animations
+        tl.to(".hero-bg-object", { scale: 1.1, yPercent: -5, ease: "none" }, 0);
+        tl.to(".bg-text", { yPercent: 5, ease: "none" }, 0);
+      });
+
+      mm.add("(min-width: 768px)", () => {
+        const tl = gsap.timeline({
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: "top top",
+            end: "+=150%",
+            pin: true,
+            scrub: 1.5,
+          },
+        });
+
         const spreadMultiplier = 230;
         tl.to(cardsRef.current, {
           x: (i) => (i - (CARDS.length - 1) / 2) * spreadMultiplier,
@@ -111,19 +147,12 @@ const HeroSection = () => {
           },
           ease: "power2.inOut",
         });
-      }
 
-      // Parallax for Background Decorative Elements
-      tl.to(".hero-bg-object", {
-        scale: 1.1,
-        yPercent: -5,
-        ease: "none",
-      }, 0);
+        tl.to(".hero-bg-object", { scale: 1.1, yPercent: -5, ease: "none" }, 0);
+        tl.to(".bg-text", { yPercent: 5, ease: "none" }, 0);
+      });
 
-      tl.to(".bg-text", {
-        yPercent: 5,
-        ease: "none",
-      }, 0);
+      return () => mm.revert();
     },
     { scope: sectionRef }
   );
@@ -134,12 +163,12 @@ const HeroSection = () => {
       className="relative h-screen w-full overflow-hidden bg-background flex flex-col items-center justify-center pt-20"
     >
       {/* Main Heading - Fluid Typography with clamp() for smooth responsiveness */}
-      <div className="relative z-20 flex flex-col items-center mb-[clamp(-15vh,-10vw,-4vh)] px-4 w-full overflow-visible">
-          <h2 className="flex flex-col md:flex-row items-center justify-center gap-0 md:gap-[0.3em] font-black leading-[clamp(0.7,0.75,1)] md:leading-none tracking-[0.05rem] text-foreground text-center font-tomorrow uppercase whitespace-nowrap overflow-visible">
-              <RollingText text="Crafted" className="text-[clamp(3.5rem,20vw,8rem)] md:text-[6vw]" />
-              <RollingText text="Creative" className="text-[clamp(3.5rem,20vw,8rem)] md:text-[6vw]" />
-              <RollingText text="Coding" className="text-[clamp(3.5rem,20vw,8rem)] md:text-[6vw]" />
-          </h2>
+      <div className="relative z-20 flex flex-col items-center mb-[clamp(-8vh,-5vw,-2vh)] px-4 w-full overflow-visible md:translate-y-[8vh]">
+        <h2 className="flex flex-col md:flex-row items-center justify-center gap-0 md:gap-[0.3em] font-black leading-[clamp(0.7,0.75,1)] md:leading-none tracking-[0.05rem] text-foreground text-center font-tomorrow uppercase whitespace-nowrap overflow-visible">
+          <RollingText text="Crafted" className="text-[clamp(3.5rem,20vw,8rem)] md:text-[6vw]" />
+          <RollingText text="Creative" className="text-[clamp(3.5rem,20vw,8rem)] md:text-[6vw]" />
+          <RollingText text="Coding" className="text-[clamp(3.5rem,20vw,8rem)] md:text-[6vw]" />
+        </h2>
       </div>
 
       {/* Background Hero Text */}
@@ -157,7 +186,7 @@ const HeroSection = () => {
       {/* Cards Container - Fluid vertical positioning */}
       <div
         ref={containerRef}
-        className="relative w-full max-w-7xl mx-auto h-[400px] flex items-center justify-center z-20 mt-[clamp(12vh,15vh,38vh)] md:mt-[38vh]"
+        className="relative w-full max-w-7xl mx-auto h-[400px] flex items-center justify-center z-20 mt-[clamp(5vh,8vh,38vh)] md:mt-[38vh]"
       >
         {CARDS.map((card, i) => (
           <div
