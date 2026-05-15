@@ -7,71 +7,29 @@ import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { cn } from "@/lib/utils";
 import { RollingText } from "@/components/shared/rolling-text";
+import { HeroCards, CARDS } from "./hero-cards";
 
 gsap.registerPlugin(ScrollTrigger);
-
-const CARDS = [
-  {
-    id: 1,
-    image: "https://images.unsplash.com/photo-1633167606207-d840b5070fc2?q=80&w=500&auto=format&fit=crop",
-    initialRotation: -20,
-    x: -100,
-    y: 15,
-    zIndex: 10,
-  },
-  {
-    id: 2,
-    image: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=500&auto=format&fit=crop",
-    initialRotation: -10,
-    x: -60,
-    y: 0,
-    zIndex: 20,
-  },
-  {
-    id: 3,
-    image: "https://images.unsplash.com/photo-1634017839464-5c339ebe3cb4?q=80&w=500&auto=format&fit=crop",
-    initialRotation: -5,
-    x: -20,
-    y: 5,
-    zIndex: 30,
-  },
-  {
-    id: 4,
-    image: "https://images.unsplash.com/photo-1633167606207-d840b5070fc2?q=80&w=500&auto=format&fit=crop",
-    initialRotation: 5,
-    x: 20,
-    y: -5,
-    zIndex: 40,
-  },
-  {
-    id: 5,
-    image: "https://images.unsplash.com/photo-1633167606207-d840b5070fc2?q=80&w=500&auto=format&fit=crop",
-    initialRotation: 10,
-    x: 60,
-    y: 0,
-    zIndex: 50,
-  },
-  {
-    id: 6,
-    image: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=500&auto=format&fit=crop",
-    initialRotation: 20,
-    x: 100,
-    y: 15,
-    zIndex: 60,
-  },
-];
 
 const HeroSection = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const sectionRef = useRef<HTMLElement>(null);
   const cardsRef = useRef<(HTMLDivElement | null)[]>([]);
-  const [isMobile, setIsMobile] = useState(false);
+  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
 
   useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth < 768);
-    checkMobile();
-    window.addEventListener("resize", checkMobile);
-    return () => window.removeEventListener("resize", checkMobile);
+    const handleMouseMove = (e: MouseEvent) => {
+      if (sectionRef.current) {
+        const rect = sectionRef.current.getBoundingClientRect();
+        setMousePos({
+          x: e.clientX - rect.left,
+          y: e.clientY - rect.top,
+        });
+      }
+    };
+
+    window.addEventListener("mousemove", handleMouseMove);
+    return () => window.removeEventListener("mousemove", handleMouseMove);
   }, []);
 
   useGSAP(
@@ -162,8 +120,16 @@ const HeroSection = () => {
       ref={sectionRef}
       className="relative h-screen w-full overflow-hidden bg-background flex flex-col items-center justify-center pt-20"
     >
+      {/* Static Background Smoke Layers - Extreme Edge Accents (Light Theme Only) */}
+      <div className="absolute -left-18 top-0 bottom-0 w-[200px] md:w-[300px] pointer-events-none opacity-60 dark:hidden">
+        <Image src="/hero/smoke-left.png" alt="" fill className="object-contain object-left" priority />
+      </div>
+      <div className="absolute -right-20 top-0 bottom-0 w-[200px] md:w-[300px] pointer-events-none opacity-60 dark:hidden">
+        <Image src="/hero/smoke-right.png" alt="" fill className="object-contain object-right" priority />
+      </div>
+
       {/* Main Heading - Fluid Typography with clamp() for smooth responsiveness */}
-      <div className="relative z-20 flex flex-col items-center mb-[clamp(-8vh,-5vw,-2vh)] px-4 w-full overflow-visible md:translate-y-[8vh]">
+      <div className="relative z-20 flex flex-col items-center mb-[clamp(-8vh,-5vw,-2vh)] px-4 w-full overflow-visible md:translate-y-[6vh]">
         <h2 className="flex flex-col md:flex-row items-center justify-center gap-0 md:gap-[0.3em] font-black leading-[clamp(0.7,0.75,1)] md:leading-none tracking-[0.05rem] text-foreground text-center font-tomorrow uppercase whitespace-nowrap overflow-visible">
           <RollingText text="Crafted" className="text-[clamp(3.5rem,20vw,8rem)] md:text-[6vw]" />
           <RollingText text="Creative" className="text-[clamp(3.5rem,20vw,8rem)] md:text-[6vw]" />
@@ -171,9 +137,26 @@ const HeroSection = () => {
         </h2>
       </div>
 
-      {/* Background Hero Text */}
+      {/* Background Hero Text with Interactive Shimmer */}
       <div className="bg-text absolute inset-0 flex items-center justify-center select-none pointer-events-none z-0 -translate-y-[6vh]">
+        {/* Base Static Layer */}
         <h1 className="text-[clamp(10vw,20vw,25vw)] font-black text-foreground/[0.06] uppercase tracking-[-0.05em] leading-none whitespace-nowrap font-tomorrow">
+          UPFRAME
+        </h1>
+
+        {/* Interactive Shimmer Layer */}
+        <h1
+          className="absolute text-[clamp(10vw,20vw,25vw)] font-black uppercase tracking-[-0.05em] leading-none whitespace-nowrap font-tomorrow"
+          style={{
+            backgroundImage: "linear-gradient(135deg, #999999 0%, #e2e2e2 25%, #ffffff 50%, #e2e2e2 75%, #999999 100%)",
+            backgroundSize: "200% auto",
+            WebkitBackgroundClip: "text",
+            backgroundClip: "text",
+            color: "transparent",
+            maskImage: `radial-gradient(circle 250px at ${mousePos.x}px ${mousePos.y}px, black 0%, transparent 100%)`,
+            WebkitMaskImage: `radial-gradient(circle 250px at ${mousePos.x}px ${mousePos.y}px, black 0%, transparent 100%)`,
+          }}
+        >
           UPFRAME
         </h1>
       </div>
@@ -188,28 +171,7 @@ const HeroSection = () => {
         ref={containerRef}
         className="relative w-full max-w-7xl mx-auto h-[400px] flex items-center justify-center z-20 mt-[clamp(5vh,8vh,38vh)] md:mt-[38vh]"
       >
-        {CARDS.map((card, i) => (
-          <div
-            key={card.id}
-            ref={(el) => { cardsRef.current[i] = el }}
-            className={cn(
-              "absolute w-[clamp(150px,25vw,210px)] aspect-square rounded-[1rem] overflow-hidden border border-white/10 bg-zinc-900 shadow-2xl transition-shadow duration-500 hover:shadow-primary/20 hover:border-primary/20 group",
-            )}
-            style={{
-              zIndex: card.zIndex,
-              transform: `rotate(${card.initialRotation}deg) translate(${card.x}px, ${card.y}px) scale(0.95)`,
-            }}
-          >
-            <Image
-              src={card.image}
-              alt={`Abstract Art ${card.id}`}
-              fill
-              className="object-cover transition-transform duration-700 group-hover:scale-110"
-              sizes="(max-width: 768px) 180px, 200px"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-80" />
-          </div>
-        ))}
+        <HeroCards cardsRef={cardsRef} />
       </div>
 
       {/* Hero Bottom Information */}

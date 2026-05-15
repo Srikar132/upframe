@@ -4,6 +4,7 @@ import About from "@/components/main/about";
 import Footer from "@/components/shared/footer";
 import OurServices from "@/components/main/our-services";
 import OurWorks from "@/components/main/our-works";
+import { HeroMission } from "@/components/main/hero-mission";
 
 export default async function Home() {
   return (
@@ -13,6 +14,7 @@ export default async function Home() {
 
         {/* hero section */}
         <Hero />
+        <HeroMission />
 
         <OurServices />
 
