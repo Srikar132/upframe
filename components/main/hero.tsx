@@ -6,6 +6,7 @@ import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { cn } from "@/lib/utils";
+import { RollingText } from "@/components/shared/rolling-text";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -36,7 +37,7 @@ const CARDS = [
   },
   {
     id: 4,
-    image: "https://images.unsplash.com/photo-1635776062127-d3ad4af3da9e?q=80&w=500&auto=format&fit=crop",
+    image: "https://images.unsplash.com/photo-1633167606207-d840b5070fc2?q=80&w=500&auto=format&fit=crop",
     initialRotation: 5,
     x: 20,
     y: -5,
@@ -67,41 +68,58 @@ const HeroSection = () => {
 
   useGSAP(
     () => {
+      // Use a unique name to avoid any potential scope collision
+      const isMobileView = window.innerWidth < 768;
+      
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: sectionRef.current,
           start: "top top",
-          end: "+=150%",
+          end: isMobileView ? "+=250%" : "+=150%", // Extended runway for mobile horizontal scroll
           pin: true,
           scrub: 1.5,
         },
       });
 
-      const isMobile = window.innerWidth < 768;
-      // Restoring wide spread: 200px cards + ~40px gap = 240px multiplier
-      const spreadMultiplier = isMobile ? 130 : 230;
+      if (isMobileView) {
+        // Mobile: Professional Horizontal Scroll
+        // Start cards fanned out to the right side of the screen
+        tl.set(cardsRef.current, {
+          x: (i) => (i * 300) + 150,
+          rotation: (i) => (i - 2.5) * 10,
+          scale: 0.8,
+        });
 
-      // Purely horizontal expansion
-      tl.to(cardsRef.current, {
-        x: (i) => (i - (CARDS.length - 1) / 2) * spreadMultiplier,
-        rotation: 0,
-        y: 0,
-        scale: 1,
-        stagger: {
-          each: 0.02,
-          from: "center",
-        },
-        ease: "power2.inOut",
-      });
+        // Deep horizontal displacement for a clear 'scrolling' feel
+        tl.to(cardsRef.current, {
+          x: (i) => (i * 300) - 1800,
+          rotation: 0,
+          scale: 1,
+          ease: "none",
+        });
+      } else {
+        // Desktop: High-End Expansion Logic
+        const spreadMultiplier = 230;
+        tl.to(cardsRef.current, {
+          x: (i) => (i - (CARDS.length - 1) / 2) * spreadMultiplier,
+          rotation: 0,
+          y: 0,
+          scale: 1,
+          stagger: {
+            each: 0.02,
+            from: "center",
+          },
+          ease: "power2.inOut",
+        });
+      }
 
-      // Parallax for Background Object
+      // Parallax for Background Decorative Elements
       tl.to(".hero-bg-object", {
         scale: 1.1,
         yPercent: -5,
         ease: "none",
       }, 0);
 
-      // Parallax for Background Text
       tl.to(".bg-text", {
         yPercent: 5,
         ease: "none",
@@ -115,36 +133,38 @@ const HeroSection = () => {
       ref={sectionRef}
       className="relative h-screen w-full overflow-hidden bg-background flex flex-col items-center justify-center pt-20"
     >
-      {/* Main Heading - Fluid Typography "CRAFTED CREATIVE CODING" */}
-      <div className="relative z-20 flex flex-col items-center mb-[-3.5vh] px-4">
-          <h2 className="text-[7.5vw] md:text-[6.5vw] font-black leading-[1.9] tracking-[0.1rem] text-foreground text-center font-tomorrow uppercase whitespace-nowrap">
-              Crafted Creative Coding
+      {/* Main Heading - Fluid Typography with clamp() for smooth responsiveness */}
+      <div className="relative z-20 flex flex-col items-center mb-[clamp(-15vh,-10vw,-4vh)] px-4 w-full overflow-visible">
+          <h2 className="flex flex-col md:flex-row items-center justify-center gap-0 md:gap-[0.3em] font-black leading-[clamp(0.7,0.75,1)] md:leading-none tracking-[0.05rem] text-foreground text-center font-tomorrow uppercase whitespace-nowrap overflow-visible">
+              <RollingText text="Crafted" className="text-[clamp(3.5rem,20vw,8rem)] md:text-[6vw]" />
+              <RollingText text="Creative" className="text-[clamp(3.5rem,20vw,8rem)] md:text-[6vw]" />
+              <RollingText text="Coding" className="text-[clamp(3.5rem,20vw,8rem)] md:text-[6vw]" />
           </h2>
       </div>
 
-      {/* Background Text - Shifted slightly up */}
+      {/* Background Hero Text */}
       <div className="bg-text absolute inset-0 flex items-center justify-center select-none pointer-events-none z-0 -translate-y-[6vh]">
-        <h1 className="text-[20vw] font-black text-foreground/[0.06] uppercase tracking-[-0.05em] leading-none whitespace-nowrap font-tomorrow">
+        <h1 className="text-[clamp(10vw,20vw,25vw)] font-black text-foreground/[0.06] uppercase tracking-[-0.05em] leading-none whitespace-nowrap font-tomorrow">
           UPFRAME
         </h1>
       </div>
 
-      {/* Background 3D Object */}
+      {/* Background Decorative Object */}
       <div className="hero-bg-object absolute inset-0 flex items-center justify-center opacity-50 pointer-events-none z-10">
         <div className="relative w-full h-full max-w-[1200px] aspect-square" />
       </div>
 
-      {/* Cards Container - Positioned precisely below the text */}
+      {/* Cards Container - Fluid vertical positioning */}
       <div
         ref={containerRef}
-        className="relative w-full max-w-7xl mx-auto h-[400px] flex items-center justify-center z-20 mt-[38vh]"
+        className="relative w-full max-w-7xl mx-auto h-[400px] flex items-center justify-center z-20 mt-[clamp(12vh,15vh,38vh)] md:mt-[38vh]"
       >
         {CARDS.map((card, i) => (
           <div
             key={card.id}
             ref={(el) => { cardsRef.current[i] = el }}
             className={cn(
-              "absolute w-[200px] md:w-[210px] aspect-square rounded-[1rem] overflow-hidden border border-white/10 bg-zinc-900 shadow-2xl transition-shadow duration-500 hover:shadow-primary/20 hover:border-primary/20 group",
+              "absolute w-[clamp(150px,25vw,210px)] aspect-square rounded-[1rem] overflow-hidden border border-white/10 bg-zinc-900 shadow-2xl transition-shadow duration-500 hover:shadow-primary/20 hover:border-primary/20 group",
             )}
             style={{
               zIndex: card.zIndex,
@@ -163,7 +183,7 @@ const HeroSection = () => {
         ))}
       </div>
 
-      {/* Bottom Info & Badge */}
+      {/* Hero Bottom Information */}
       <div className="absolute bottom-5 left-10 right-10 flex justify-between items-end z-30">
         <div className="flex flex-col gap-6">
           <div className="flex flex-col gap-2">

@@ -90,10 +90,7 @@ const Navbar = () => {
                             size="icon"
                             className="text-foreground hover:bg-foreground/10 rounded-full"
                         >
-                            <div className="flex flex-col gap-1.5 w-6">
-                                <span className="block w-full h-px bg-foreground" />
-                                <span className="block w-full h-px bg-foreground" />
-                            </div>
+                            {/* <Menu /> */}
                         </Button>
                     </div>
                 </div>
